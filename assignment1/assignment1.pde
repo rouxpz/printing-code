@@ -6,8 +6,8 @@ float print_height = 11; //height in inches
 float make_bigger = 40; //magnifies sketch window
 
 //drawing variables
-float a = 0;
-float y;
+float a = 0; //alpha value
+float y; //y placement
 
 void setup() {
   size(round(print_width * make_bigger), round(print_height * make_bigger));
@@ -18,18 +18,18 @@ void setup() {
   
   //draws the actual cone
   for (int i = 45; i < width-100; i+=50) {
-    a = a+(i/2);
+    a = a+(i/2); //modify alpha value
     strokeWeight(4);
     
     //ice cream section
     noStroke();
     fill(0, a);
-    ellipse(i+50, (height/2)-87, 125, 125);
+    ellipse(i+50, (height/2)-80, 125, 125);
     
     //cone section
     stroke(0, a);
     fill(255);
-    triangle(i, height/2-50, i+100, height/2-50, i+50, height-50);
+    triangle(i, height/2-43, i+100, height/2-43, i+50, height-50);
   }
 
   endRecord();
