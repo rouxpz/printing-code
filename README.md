@@ -1,0 +1,1 @@
+This repository contains all class assignments for "Printing Code," taken during the Spring 2013 semester at NYU's Interactive Telecommunications Program (ITP).
