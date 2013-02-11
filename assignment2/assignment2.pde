@@ -13,7 +13,10 @@ void setup() {
   smooth();
 
   drawSharp();
-  drawWet();
+  drawWet(0, height-height/5);
+  drawWet(10, height-height/4);
+  drawWet(-15, height-height/3);
+  drawWet(0, height-height/6);
 
   //endRecord();
 }
@@ -62,8 +65,18 @@ void drawSharp() {
   endShape();
 }
 
-void drawWet() {
+void drawWet(float x, float y) {
 
+  noStroke();
+  fill(0, 50);
 
+  beginShape();
+  vertex(x, y);
+  for (int i = 0; i < 5; i++) {
+    bezierVertex((i+1)*(width/5), y-50, (i+1)*(width/5), y, (i+1)*(width/5), y+50);
+  }
+  vertex(width, height);
+  vertex(x, height);
+  endShape();
 }
 
