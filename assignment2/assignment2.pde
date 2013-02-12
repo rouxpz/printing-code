@@ -8,17 +8,18 @@ float makeBigger = 30;
 void setup() {
   size(round(printWidth*makeBigger), round(printHeight*makeBigger));
 
-  //beginRecord(PDF, "assignment2.pdf");
+  beginRecord(PDF, "assignment2.pdf");
   background(255);
   smooth();
-
+  
+  //iterate through 4 wave shapes so they layer on top of each other in slightly different positions
+  for (int i = 0; i < 4; i++) {
+    drawWet(-(i*10), height-height/(i+5));
+  }
+  
   drawSharp();
-  drawWet(0, height-height/5);
-  drawWet(10, height-height/4);
-  drawWet(-15, height-height/3);
-  drawWet(0, height-height/6);
 
-  //endRecord();
+  endRecord();
 }
 
 
@@ -28,7 +29,7 @@ void drawSharp() {
 
   stroke(0);
   strokeWeight(3);
-  fill(0, 200);
+  fill(0, 210);
 
   beginShape();
 
@@ -68,15 +69,25 @@ void drawSharp() {
 void drawWet(float x, float y) {
 
   noStroke();
-  fill(0, 50);
+  fill(0, 70);
 
   beginShape();
-  vertex(x, y);
-  for (int i = 0; i < 5; i++) {
-    bezierVertex((i+1)*(width/5), y-50, (i+1)*(width/5), y, (i+1)*(width/5), y+50);
+  for (int i = 0; i < 10; i++) {
+    if (i == 0) {
+      vertex(x, y); //set initial vertex point
+    }
+    
+    if (i%2 != 0) { //set bezier vertices to create wave shapes
+      bezierVertex((i+1)*(width/6), y+50, ((i+2)*(width/6)), y, ((i+2)*(width/6))+x, y-25);
+    } else {
+      bezierVertex((i+1)*(width/6), y-50, ((i+2)*(width/6)), y, ((i+2)*(width/6))+x, y+25);
+    }
   }
+  
+  //set last two vertex points to be the edge of the frame
   vertex(width, height);
   vertex(x, height);
+  
   endShape();
 }
 
