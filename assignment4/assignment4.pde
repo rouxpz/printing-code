@@ -12,6 +12,7 @@ void setup()
   smooth();
   noFill();
 
+  //draw 20 instances of the word
   for (int i = 0; i < 20; i++) {
     
     float xVariance = random(10, 13);
@@ -38,11 +39,6 @@ void drawFont() {
   // before we generate anything, we need to tell the library how long we want between the points of the font
   RCommand.setSegmentLength(30);
 
-  // We can also tell it how to space them out
-  //RCommand.setSegmentator(RCommand.UNIFORMLENGTH);
-  //RCommand.setSegmentator(RCommand.UNIFORMSTEP);
-  //RCommand.setSegmentator(RCommand.ADAPTATIVE); 
-
   // get a group from a word. Because we want the reduced points, we need to call toPolygonGroup,
   // because otherwise we would get the actual vertices
   RGroup group = font.toGroup("fuzzy").toPolygonGroup();
@@ -62,6 +58,8 @@ void drawFont() {
 
       stroke(0);
       beginShape();
+      
+      //initial vertex at point 0
       RPoint beginPoint = curContour.points[0];
       vertex(beginPoint.x, beginPoint.y);
 
@@ -69,12 +67,14 @@ void drawFont() {
       for (int j = 1; j < (curContour.points.length)-2; j++)
       {
 
-        // now for each RPoint (which is a vector), make an ellipse
+        // bezier vertex for each point
         RPoint curPoint = curContour.points[j];
         RPoint bezPoint = curContour.points[j+2];
         RPoint finPoint = curContour.points[j+2];
         bezierVertex(curPoint.x, curPoint.y, bezPoint.x, bezPoint.y, finPoint.x, finPoint.y);
       }
+      
+      //final vertex at last point
       RPoint endPoint = curContour.points[curContour.points.length-1];
       vertex(endPoint.x, endPoint.y);
 
