@@ -13,7 +13,7 @@ void setup() {
   
   size(round(horiz*makeBigger), round(vertical*makeBigger));
   
-  beginRecord(PDF, "assignment4.pdf");
+  beginRecord(PDF, "assignment4alt.pdf");
  
   background(200);
   colorMode(HSB, 1, 1, 1); 
@@ -86,6 +86,7 @@ void drawFont() {
       TColor value = TColor.newHSV(vHue, bright, 0.8); 
 
       stroke(value.hue(), value.saturation(), value.brightness());
+      strokeWeight(2);
       beginShape();
       
       //initial vertex at point 0
