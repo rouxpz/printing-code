@@ -1,21 +1,22 @@
 import toxi.color.*;
 import toxi.util.datatypes.*;
-
 import geomerative.*;
+import processing.pdf.*;
 
 
 //set up guidelines for printing
 float vertical = 7;
-float horiz = 15;
+float horiz = 16;
 float makeBigger = 60;
 
 void setup() {
   
   size(round(horiz*makeBigger), round(vertical*makeBigger));
+  
+  beginRecord(PDF, "assignment4.pdf");
+ 
   background(200);
-  
-  colorMode(HSB, 1, 1, 1);
-  
+  colorMode(HSB, 1, 1, 1); 
   smooth();
   noFill();
   
@@ -42,6 +43,8 @@ void setup() {
     drawFont();
     popMatrix();
   }
+  
+  endRecord();
 }
 
 
@@ -75,9 +78,11 @@ void drawFont() {
       // for each contour, let's loop through all the points
       RContour curContour = polygon.contours[i];
       
+      //set up variables for new TColor object
       float vHue = random(0.7, 1);
       float bright = random(0.4, 0.7);
       
+      //create new TColor object
       TColor value = TColor.newHSV(vHue, bright, 0.8); 
 
       stroke(value.hue(), value.saturation(), value.brightness());
