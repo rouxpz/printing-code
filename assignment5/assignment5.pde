@@ -1,12 +1,13 @@
+import toxi.color.*;
+import toxi.util.datatypes.*;
 import geomerative.*;
 import org.apache.batik.svggen.font.table.*;
 import org.apache.batik.svggen.font.*;
-import toxi.color.*;
-import toxi.color.theory.*;
+import processing.pdf.*;
 
-
-float horizontal = 11;
-float vertical = 17;
+//for printing
+float horizontal = 10;
+float vertical = 16;
 float makeBigger = 40;
 
 int fontSize;
@@ -23,22 +24,33 @@ void setup() {
   size(round(horizontal*makeBigger), round(vertical*makeBigger));
   smooth();
   background(255);
+  
+  beginRecord(PDF, "assignment5.pdf");
+  
+  colorMode(HSB, 1, 1, 1, 255);
 
   RG.init(this);
 
-  ewing = new Story(74);
-  zedelghem = new Story(80);
-  luisa = new Story(102);
-  cavendish = new Story(76);
-  sonmi = new Story(92);
-  sloosha = new Story(73);
+  //set up each new story object
+  ewing = new Story(74, random(0.4, 0.5), 0.5);
+  zedelghem = new Story(80, random(0.6, 0.7), 0.4);
+  luisa = new Story(102, random(0.9, 1), 0.3);
+  cavendish = new Story(76, random(0.3, 0.4), 0.4);
+  sonmi = new Story(92, random(0.1, 0.2), 0.4);
+  sloosha = new Story(73, random(0, 0.1), 0.3);
 
   drawBackground();
   displayStories();
-  fontSize = 90;
+  
+  //draw text
+  colorMode(RGB, 255);
+  fontSize = 80;
   displayTitle();
-  fontSize = 40;
+  
+  fontSize = 35;
   displayAuthor();
+  
+  endRecord();
 }
 
 void displayStories() {
@@ -60,8 +72,6 @@ void displayStories() {
   ewing.w = map(ewing.pages, 0, 102, 0, height/2);
   ewing.h = 2*ewingModule.h;
 
-  noStroke();
-  fill(0, 255, 0, 80);
   ewing.drawStory();
   popMatrix();
 
@@ -71,19 +81,15 @@ void displayStories() {
   zedelghem.h = map(zedelghem.pages, 0, 102, 0, height/2);
   zedelghem.w = 2*zedelghemModule.h;
 
-  noStroke();
-  fill(255, 0, 0, 80);
   zedelghem.drawStory();
   popMatrix();
 
   //draw luisa rect
   pushMatrix();
-  translate(luisaModule.x-10, luisaModule.y-10);
+  translate(luisaModule.x-20, luisaModule.y-10);
   luisa.w = map(luisa.pages, 0, 102, 0, height/2);
   luisa.h = 2*luisaModule.h;
 
-  noStroke();
-  fill(0, 0, 255, 80);
   luisa.drawStory();
   popMatrix();
 
@@ -104,8 +110,6 @@ void displayStories() {
   sonmi.w = map(sonmi.pages, 0, 102, 0, height/2);
   sonmi.h = 2*sonmiModule.h;
 
-  noStroke();
-  fill(100, 0, 255, 80);
   sonmi.drawStory();
   popMatrix();
 
@@ -115,12 +119,11 @@ void displayStories() {
   sloosha.h = map(sloosha.pages, 0, 102, 0, height/2);
   sloosha.w = 2*slooshaModule.h;
 
-  noStroke();
-  fill(100, 0, 255, 80);
   sloosha.drawStory();
   popMatrix();
 }
 
+//draw the title
 void displayTitle() {
   //RG.init(this);
   ModularGrid grid = new ModularGrid(9, 15, 10, 25);
@@ -130,13 +133,13 @@ void displayTitle() {
   Module module2 = grid.modules[2][3];
 
   pushMatrix();
-  translate(module1.x-20, module1.y+20);
-  fill(150);
+  translate(module1.x-10, module1.y+15);
+  fill(50, 220);
   font.draw("CLOUD");
   popMatrix();
 
   pushMatrix();
-  translate(module2.x-20, module2.y+30);
+  translate(module2.x-10, module2.y+18);
   font.draw("ATLAS");
   popMatrix();
 }
@@ -145,21 +148,23 @@ void displayAuthor() {
   
   RFont font = new RFont("Tw Cen MT Bold.ttf", fontSize, RFont.RIGHT);
 
+  //draw grid
   ModularGrid grid = new ModularGrid(9, 15, 10, 25);
   //grid.display();
   
   Module novelModule = grid.modules[8][13];
   Module authorModule = grid.modules[8][14];
   
+  //draw text
   pushMatrix();
-  translate(novelModule.x+novelModule.w-5, novelModule.y+10);
+  translate(novelModule.x+novelModule.w, novelModule.y+10);
   noStroke();
-  fill(150);
+  fill(50, 200);
   font.draw("a novel");
   popMatrix();
 
   pushMatrix();
-  translate(authorModule.x+authorModule.w/2.5-5, authorModule.y);
+  translate(authorModule.x+authorModule.w/2.5-12, authorModule.y);
   font.draw("by david mitchell");
   popMatrix();
   
@@ -167,20 +172,24 @@ void displayAuthor() {
 
 void drawBackground() {
   
+  //draw the sky rectangle
   noStroke();
-  fill(0, 0, 255, 40);
+  TColor sky = TColor.newHSV(0.59, 0.5, 1);
+  fill(sky.hue(), sky.saturation(), sky.brightness(), 70);
   rect(0,0,width,height);
 
-  ModularGrid grid = new ModularGrid(80, 100, 0, 0);
+  //grid for the "clouds"
+  ModularGrid grid = new ModularGrid(70, 90, 0, 0);
   //grid.display();
 
-  for (int i = 0; i < 80; i++) {
-    for (int j = 0; j < 100; j++) {
+  //draw clouds
+  for (int i = 0; i < 70; i++) {
+    for (int j = 0; j < 90; j++) {
       Module space = grid.modules[i][j];
-      pushMatrix();
       
+      pushMatrix();
       translate(space.x, space.y);
-      fill(255,100);
+      fill(0.2, 0, 1, 100);
       //strokeWeight(2);
       ellipseMode(CORNER);
       ellipse (0,0,space.w-1,space.h-1);
