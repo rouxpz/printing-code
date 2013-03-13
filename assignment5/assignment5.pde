@@ -47,7 +47,7 @@ void setup() {
   fontSize = 80;
   displayTitle();
   
-  fontSize = 35;
+  fontSize = 30;
   displayAuthor();
   
   endRecord();
@@ -153,7 +153,7 @@ void displayAuthor() {
   //grid.display();
   
   Module novelModule = grid.modules[8][13];
-  Module authorModule = grid.modules[8][14];
+  Module authorModule = grid.modules[7][14];
   
   //draw text
   pushMatrix();
