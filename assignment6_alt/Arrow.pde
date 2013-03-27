@@ -57,21 +57,16 @@ class Arrow {
   
   void drawText() {
     ArrowGrid grid = new ArrowGrid(0, 0, 340, 340);
-    Module name = grid.modules[5][7];
-    Module charity = grid.modules[5][9];
+    Module name = grid.modules[5][10];
     
     int fontSize = 32;
     RFont font = new RFont("LCD_Solid.ttf", fontSize, RFont.LEFT);
     
     pushMatrix();
-    translate(name.x, name.y);
+    translate(name.x, name.y+(name.h/2));
     font.draw("LEVEL UP");
     popMatrix();
-    
-    pushMatrix();
-    translate(charity.x+(charity.w/2.5), charity.y);
-    font.draw("CHARITY");
-    popMatrix();
+
   }
   
 }

@@ -30,9 +30,9 @@ float[] xboxBright = new float[3];
 void setup() {
 
   size(round(pageSize*makeBigger), round(pageSize*makeBigger));
+  beginRecord(PDF, "assignment6_alt.pdf");
+  
   background(240);
-
-  beginRecord(PDF, "assignment6.pdf");
   
   colorMode(HSB, 1, 1, 1);
   initializeArrows();
