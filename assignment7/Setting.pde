@@ -28,13 +28,13 @@ class Setting {
       fill(255);
     }
 
-    if (x0 > width/2) {
-      x1 = random(x0+20, x0+50);
-      x2 = random(x1+20, x1+100);
+    if (x0 > width/3) {
+      x1 = random(x0+10, x0+30);
+      x2 = random(x1+50, x1+100);
       drawRightShape(x0, x1, x2);
     }
     else {
-      x1 = random(x0-50, x0-20);
+      x1 = random(x0-30, x0-10);
       x2 = random(x1-75, x1-50);
       drawLeftShape(x0, x1, x2);
     }
@@ -64,7 +64,7 @@ class Setting {
 
   void drawRightShape(float firstX, float secondX, float endX) {
 
-    y1 = y0+ (random(10, 50));
+    y1 = y0 + (random(10, 50));
     y2 = y1 + (random(100, 150));
     y3 = y2 + (random(200, 250));
 
